@@ -1,0 +1,20 @@
+{% extends 'steamdb/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Detail</title>
+</head>
+<body>
+{% block body %}
+    <h1>NAME:{{ game.game_name }}</h1>
+    <p>ID:{{ game.game_id }}</p>
+    <p>AT A GLANCE:{{ game.game_desc }}</p>
+    <p>TAGS:{{ game.game_tag }}</p>
+    <a href="https://store.steampowered.com/app/{{ game.game_id }}" target="_blank">click to see more</a>
+    <br>
+    <a href="{% url 'steamdb:game_summary' %}">BACK TO SUMMARY</a>
+{% endblock %}
+</body>
+</html>

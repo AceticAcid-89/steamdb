@@ -1,0 +1,22 @@
+{%  extends 'steamdb/base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SteamDB Summary</title>
+</head>
+<body>
+{% block body %}
+{% if game_list %}
+    <ul>
+    {% for game in game_list %}
+        <li><a href="{% url 'steamdb:game_detail' game.game_id %}">{{ game.game_id }}-{{ game.game_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No games are found in database.</p>
+{% endif %}
+{% endblock %}
+</body>
+</html>
