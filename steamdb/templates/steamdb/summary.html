@@ -5,18 +5,58 @@
 <head>
     <meta charset="UTF-8">
     <title>SteamDB Summary</title>
+    <script>
+        {% block script %}
+            $(function () {
+                $("#add_app_field").hide()
+                $("#cancel_button").hide()
+                $("#add_app_button").click(function () {
+                    $("#add_app_button").hide()
+                    $("#add_app_field").show()
+                    $("#cancel_button").show()
+                })
+                $("#cancel_button").click(function () {
+                    $("#add_app_button").show()
+                    $("#add_app_field").hide()
+                    $("#cancel_button").hide()
+                })
+            })
+        {% endblock %}
+    </script>
 </head>
 <body>
 {% block body %}
-{% if game_list %}
-    <ul>
-    {% for game in game_list %}
-        <li><a href="{% url 'steamdb:game_detail' game.game_id %}">{{ game.game_id }}-{{ game.game_name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No games are found in database.</p>
-{% endif %}
+
+    <fieldset id="add_app_field">
+    <legend>Add app info</legend>
+        <form action="{% url 'steamdb:app_add' %}" method="post">
+        {% csrf_token %}
+            app name:
+            <input type="text" value="null" name="app_name" class="add_input"><br>
+            app id:
+            <input type="text" value="null" name="app_id" class="add_input"><br>
+            at a glance:
+            <input type="text" value="null" name="app_desc" class="add_input"><br>
+            app tag:
+            <input type="text" value="null" name="app_tag" class="add_input"><br>
+            <input type="submit" value="ADD">
+        </form>
+    </fieldset>
+
+    <div style="text-align: center">
+        <button id="add_app_button">ADD APP INFO</button>
+        <button id="cancel_button">CANCEL</button>
+    </div>
+
+    {% if app_list %}
+        <ul>
+        {% for app in app_list %}
+            <li><a href="{% url 'steamdb:app_detail' app.app_id %}">{{ app.app_id }}-{{ app.app_name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No apps are found in database.</p>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

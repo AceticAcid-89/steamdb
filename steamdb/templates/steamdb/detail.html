@@ -4,17 +4,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Game Detail</title>
+    <title>app Detail</title>
+    <script>
+        {% block script %}
+            $(document).ready(function(){
+                $("#edit_field").hide()
+                $("#edit_button").click(function () {
+                    $("#edit_field").show()
+                    $("#edit_button").hide()
+                });
+                $("#cancel_button").click(function () {
+                    $("#edit_field").hide()
+                    $("#edit_button").show()
+                })
+
+            });
+        {% endblock %}
+    </script>
 </head>
 <body>
 {% block body %}
-    <h1>NAME:{{ game.game_name }}</h1>
-    <p>ID:{{ game.game_id }}</p>
-    <p>AT A GLANCE:{{ game.game_desc }}</p>
-    <p>TAGS:{{ game.game_tag }}</p>
-    <a href="https://store.steampowered.com/app/{{ game.game_id }}" target="_blank">click to see more</a>
+    <h1>NAME:{{ app.app_name }}</h1>
+    <p>ID:{{ app.app_id }}</p>
+    <p>AT A GLANCE:{{ app.app_desc }}</p>
+    <p>TAGS:{{ app.app_tag }}</p>
+    <a href="https://store.steampowered.com/app/{{ app.app_id }}" target="_blank">steam link</a>
     <br>
-    <a href="{% url 'steamdb:game_summary' %}">BACK TO SUMMARY</a>
+    <br>
+    <button id="edit_button" value="EDIT">EDIT</button>
+    <form action="{% url 'steamdb:app_delete' app.app_id %}" method="post" style="display: inline">
+    {%  csrf_token %}
+        <input type="submit" value="DELETE">
+    </form>
+    <br><br>
+
+    <fieldset id="edit_field">
+    <legend>Edit app info</legend>
+        <form action="{% url 'steamdb:app_edit' app.app_id %}" method="post" style="display: inline">
+        {% csrf_token %}
+            at a glance:
+            <input type="text", value="null", name="app_desc" class="edit_input"><br>
+            app tag:
+            <input type="text", value="null", name="app_tag" class="edit_input"><br>
+            <input type="submit", value="submit">
+        </form>
+        <button id="cancel_button">CANCEL</button>
+    </fieldset>
+
+    <a href="{% url 'steamdb:app_summary' %}">BACK TO SUMMARY</a>
 {% endblock %}
 </body>
 </html>

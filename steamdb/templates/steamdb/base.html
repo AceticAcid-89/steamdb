@@ -1,9 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-    html * {font-family: "Comic Sans MS", "Microsoft YaHei"}
-</style>
+    <script src="https://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        {% block script %}
+        {% endblock %}
+    </script>
+    <style>
+        html * {
+            font-family: "Comic Sans MS", "Microsoft YaHei", serif
+        }
+        #edit_field {
+            border-color: mediumorchid;
+            border-width: 5px;
+            border-style: solid;
+        }
+        #add_app_field {
+            border-color: mediumorchid;
+            border-width: 5px;
+            border-style: solid;
+        }
+        .edit_input {
+            position: absolute;
+            left: 200px;
+            width: 1200px;
+        }
+        .add_input {
+            position: absolute;
+            left: 200px;
+            width: 1200px;
+        }
+    </style>
 </head>
 <body>
 {% block body %}
