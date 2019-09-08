@@ -28,9 +28,15 @@
     <p>ID:{{ app.app_id }}</p>
     <p>AT A GLANCE:{{ app.app_desc }}</p>
     <p>TAGS:{{ app.app_tag }}</p>
-    <a href="https://store.steampowered.com/app/{{ app.app_id }}" target="_blank">steam link</a>
-    <br>
-    <br>
+    <p>PUBLISHER:{{ app.app_publisher }}</p>
+    <p>DEVELOPER:{{ app.app_developer }}</p>
+    <p>HISTORY REVIEWS:{{ app.app_history_reviews }}</p>
+    <p>RECENT REVIEWS:{{ app.app_recent_reviews }}</p>
+    <p>THUMBNAIL:{{ app.app_thumbnail }}</p>
+    <p>RELEASE DATE:{{ app.app_release_date }}</p>
+    <p>PRICE:{{ app.app_price }}</p>
+    <p>NEWS:{{ app.app_news }}</p>
+    <p><a href="https://store.steampowered.com/app/{{ app.app_id }}" target="_blank">steam link</a></p>
     <button id="edit_button" value="EDIT">EDIT</button>
     <form action="{% url 'steamdb:app_delete' app.app_id %}" method="post" style="display: inline">
     {%  csrf_token %}
@@ -40,13 +46,12 @@
 
     <fieldset id="edit_field">
     <legend>Edit app info</legend>
-        <form action="{% url 'steamdb:app_edit' app.app_id %}" method="post" style="display: inline">
+        <form method="post" enctype="multipart/form-data"
+              class="edit_form" action="{% url 'steamdb:app_edit' app.app_id %}"
+              style="display: inline">
         {% csrf_token %}
-            at a glance:
-            <input type="text", value="null", name="app_desc" class="edit_input"><br>
-            app tag:
-            <input type="text", value="null", name="app_tag" class="edit_input"><br>
-            <input type="submit", value="submit">
+            {{ app_edit_form.as_p }}
+        <button type="submit">UPLOAD</button>
         </form>
         <button id="cancel_button">CANCEL</button>
     </fieldset>

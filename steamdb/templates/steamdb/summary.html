@@ -8,19 +8,19 @@
     <script>
         {% block script %}
             $(function () {
-                $("#add_app_field").hide()
-                $("#cancel_button").hide()
+                $("#add_app_field").hide();
+                $("#cancel_button").hide();
                 $("#add_app_button").click(function () {
-                    $("#add_app_button").hide()
-                    $("#add_app_field").show()
-                    $("#cancel_button").show()
-                })
+                    $("#add_app_button").hide();
+                    $("#add_app_field").show();
+                    $("#cancel_button").show();
+                });
                 $("#cancel_button").click(function () {
-                    $("#add_app_button").show()
-                    $("#add_app_field").hide()
-                    $("#cancel_button").hide()
-                })
-            })
+                    $("#add_app_button").show();
+                    $("#add_app_field").hide();
+                    $("#cancel_button").hide();
+                });
+            });
         {% endblock %}
     </script>
 </head>
@@ -46,6 +46,10 @@
     <div style="text-align: center">
         <button id="add_app_button">ADD APP INFO</button>
         <button id="cancel_button">CANCEL</button>
+        <form action="{% url 'steamdb:auto_update_app' 1152760 %}" method="post">
+            {% csrf_token %}
+            <input value="AUTO UPDATE" type="submit">
+        </form>
     </div>
 
     {% if app_list %}
@@ -55,7 +59,11 @@
         {% endfor %}
         </ul>
     {% else %}
-        <p>No apps are found in database.</p>
+        <p>No apps are found in database, want catch some?</p>
+        <form action="{% url 'steamdb:app_catch' %}" method="get">
+        {% csrf_token %}
+        <input value="catch", type="submit">
+        </form>
     {% endif %}
 {% endblock %}
 </body>
