@@ -11,5 +11,4 @@ urlpatterns = [
     path('add/', views.app_add, name="app_add"),
     path('delete/<int:app_id>/', views.app_delete, name="app_delete"),
     path('catch/', views.app_catch, name="app_catch"),
-    path('auto_update/<int:app_id>/', views.auto_update_app, name="auto_update_app"),
 ]

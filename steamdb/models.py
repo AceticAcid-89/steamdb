@@ -15,11 +15,12 @@ class SteamDB(models.Model):
     app_developer = models.CharField("app developer", max_length=200, default="NULL")
     app_history_reviews = models.TextField("app history reviews", max_length=500, default="NULL")
     app_recent_reviews = models.TextField("app recent reviews", max_length=500, default="NULL")
-    app_thumbnail = models.ImageField("app thumbnail", upload_to="documents/",default="")
-    app_tag = models.CharField("app Tags", max_length=200, default="NULL")
+    app_thumbnail = models.ImageField("app thumbnail", upload_to="steamdb/static/documents/", default="")
+    app_tag = models.CharField("app Tags", max_length=500, default="NULL")
     app_release_date = models.DateTimeField("Release Date", default=now)
     app_price = models.FloatField("app price", default=0.0)
     app_news = models.TextField("app news", max_length=1000, default="NULL")
+    app_info_complete = models.BooleanField("app info complete", default=False)
 
     def __str__(self):
         return self.app_name

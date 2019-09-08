@@ -1,5 +1,5 @@
 {% extends 'steamdb/base.html' %}
-
+{%  load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,17 +26,22 @@
 {% block body %}
     <h1>NAME:{{ app.app_name }}</h1>
     <p>ID:{{ app.app_id }}</p>
-    <p>AT A GLANCE:{{ app.app_desc }}</p>
-    <p>TAGS:{{ app.app_tag }}</p>
+    <p style="width: 1200px;">AT A GLANCE:{{ app.app_desc }}</p>
+    <p style="width: 1200px;">TAGS:{{ app.app_tag }}</p>
     <p>PUBLISHER:{{ app.app_publisher }}</p>
     <p>DEVELOPER:{{ app.app_developer }}</p>
     <p>HISTORY REVIEWS:{{ app.app_history_reviews }}</p>
     <p>RECENT REVIEWS:{{ app.app_recent_reviews }}</p>
-    <p>THUMBNAIL:{{ app.app_thumbnail }}</p>
+    {% if app.app_thumbnail %}
+        <p><img src="{% static app.app_thumbnail.url %}" alt="header image"></p>
+    {% else %}
+        <p><img src="" alt="header image"></p>
+    {% endif %}
     <p>RELEASE DATE:{{ app.app_release_date }}</p>
     <p>PRICE:{{ app.app_price }}</p>
     <p>NEWS:{{ app.app_news }}</p>
     <p><a href="https://store.steampowered.com/app/{{ app.app_id }}" target="_blank">steam link</a></p>
+
     <button id="edit_button" value="EDIT">EDIT</button>
     <form action="{% url 'steamdb:app_delete' app.app_id %}" method="post" style="display: inline">
     {%  csrf_token %}
@@ -51,7 +56,7 @@
               style="display: inline">
         {% csrf_token %}
             {{ app_edit_form.as_p }}
-        <button type="submit">UPLOAD</button>
+        <button type="submit">SUBMIT</button>
         </form>
         <button id="cancel_button">CANCEL</button>
     </fieldset>

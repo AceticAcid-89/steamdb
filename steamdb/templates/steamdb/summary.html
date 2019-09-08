@@ -46,10 +46,6 @@
     <div style="text-align: center">
         <button id="add_app_button">ADD APP INFO</button>
         <button id="cancel_button">CANCEL</button>
-        <form action="{% url 'steamdb:auto_update_app' 1152760 %}" method="post">
-            {% csrf_token %}
-            <input value="AUTO UPDATE" type="submit">
-        </form>
     </div>
 
     {% if app_list %}
